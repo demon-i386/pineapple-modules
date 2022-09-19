@@ -122,7 +122,11 @@ def stop_capture(request: Request):
 
 @module.handles_action('list_capture_history')
 def list_capture_history(request: Request):
-    return [item.name for item in PCAP_DIRECTORY.iterdir() if item.is_file()]
+    capture_hist_files = [item.name for item in PCAP_DIRECTORY.iterdir() if item.is_file()]
+    capture_hist_sizes = [f"{item.stat().st_size/float(1<<20):,.0f} MB" for item in PCAP_DIRECTORY.iterdir() if item.is_file()]
+    items_dict = {"file":capture_hist_files,"size":capture_hist_sizes}
+    return json.dumps(items_dict)
+
 
 
 @module.handles_action('get_capture_output')
