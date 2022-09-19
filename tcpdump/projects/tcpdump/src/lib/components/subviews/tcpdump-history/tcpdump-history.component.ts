@@ -16,7 +16,7 @@ export class TcpdumpHistoryComponent implements OnInit {
     }
 
     public isBusy: boolean = false;
-    public scanHistory: Array<string> = [];
+    public scanHistory: any = <any><unknown>{"size": Array, "file": Array};
 
     private handleError(msg: string): void {
         this.dialog.closeAll();
@@ -35,13 +35,15 @@ export class TcpdumpHistoryComponent implements OnInit {
             module: 'tcpdump',
             action: 'list_capture_history'
         }, (response) => {
+            console.log(JSON.parse(response))
             this.isBusy = false;
             if (response.error) {
                 this.handleError(response.error);
                 return;
             }
 
-            this.scanHistory = response;
+            this.scanHistory = JSON.parse(response);
+            console.log(this.scanHistory)
         });
     }
 
