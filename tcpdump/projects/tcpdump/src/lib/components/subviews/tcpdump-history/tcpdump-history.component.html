@@ -23,15 +23,15 @@
         </mat-table>
         <table class="mat-table" style="min-width: 100%; overflow-x: auto; justify-content: center;">
             <tbody>
-            <ng-container *ngFor="let item of scanHistory">
+            <ng-container *ngFor="let item of scanHistory.file; let i=index">
                 <tr class="mat-row">
                     <td class="mat-cell">{{ item }}</td>
+                    <td class="mat-cell">{{ scanHistory.size[i] }}</td>
                     <td class="mat-cell"><button mat-icon-button (click)="downloadItem(item);"><mat-icon>cloud_download</mat-icon></button></td>
                     <td class="mat-cell"><button mat-icon-button (click)="showDeleteDialog(item);"><mat-icon>delete</mat-icon></button></td>
                 </tr>
             </ng-container>
             </tbody>
         </table>
-        <i *ngIf="scanHistory.length == 0;">No capture history to display.</i>
     </mat-card-content>
 </mat-card>
