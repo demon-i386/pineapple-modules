@@ -44,27 +44,27 @@ build_module() {
 
     # Step 2: Copy the required files to the build output
     cp -r projects/$MODULENAME/src/module.svg dist/$MODULENAME/bundles/
-    cp -r projects/$MODULENAME/src/module.json dist/$MODULENAME/bundles/
-    cp -r projects/$MODULENAME/src/module.py dist/$MODULENAME/bundles/ > /dev/null 2>&1
-    cp -r projects/$MODULENAME/src/module.php dist/$MODULENAME/bundles/ > /dev/null 2>&1
-    cp -r projects/$MODULENAME/src/assets/ dist/$MODULENAME/bundles/ > /dev/null 2>&1
+cp -r "projects/$MODULENAME/src/module.json" "dist/$MODULENAME/bundles/"
+    cp -r "projects/$MODULENAME/src/module.py" "dist/$MODULENAME/bundles/" > /dev/null 2>&1
+    cp -r "projects/$MODULENAME/src/module.php" "dist/$MODULENAME/bundles/" > /dev/null 2>&1
+    cp -r "projects/$MODULENAME/src/assets/" "dist/$MODULENAME/bundles/" > /dev/null 2>&1
 
     # Step 3: Clean up
-    rm -rf dist/$MODULENAME/bundles/*.map
-    rm -rf dist/$MODULENAME/bundles/*.min*
+    rm -rf "dist/$MODULENAME/bundles/"*.map
+    rm -rf "dist/$MODULENAME/bundles/"*.min*
     rm -rf bundletmp
-    mv dist/$MODULENAME/bundles/ bundletmp
-    rm -rf dist/$MODULENAME/*
-    mv bundletmp/* dist/$MODULENAME/
+    mv "dist/$MODULENAME/bundles/" bundletmp
+    rm -rf "dist/$MODULENAME/"*
+    mv bundletmp/* "dist/$MODULENAME/"
     rm -rf bundletmp
 }
 
 package() {
-    VERS=$(cat dist/$MODULENAME/module.json | grep "version" | awk '{split($0, a, ": "); gsub("\"", "", a[2]); gsub(",", "", a[2]); print a[2]}')
-    rm -rf $MODULENAME-$VERS.tar.gz
+    VERS=$(cat "dist/$MODULENAME/module.json" | grep "version" | awk '{split($0, a, ": "); gsub("\"", "", a[2]); gsub(",", "", a[2]); print a[2]}')
+    rm -rf "$MODULENAME-$VERS.tar.gz"
     echo "[*] Packaging $MODULENAME (Version $VERS)"
     cd dist/
-    tar -pczf $MODULENAME-$VERS.tar.gz $MODULENAME
+    tar -pczf "$MODULENAME-$VERS.tar.gz" "$MODULENAME"
     mv $MODULENAME-$VERS.tar.gz ../
     cd ../
 }
